@@ -1,10 +1,11 @@
-const express = require("express");
-const db = require("../config/mysql");
+let db = require("../config/sqlConnection");
+let { readCredentials } = require("../config/mysqlCredentials");
 
-const get_cowfood_root = (req, res) => {
-  res.send("welcome to cow food");
+const getCowFoodRoot = (req, res) => {
+  res.send({ success: true, route: "getCowFoodRoot" });
 };
-const post_cowfood_details = (req, res) => {
+
+const postCowFoodDetails = (req, res) => {
   var sql1 = `SELECT SUM(total_milk_price) AS t_amt FROM milkPriceDetails`;
   db.query(sql1, (err, result) => {
     try {
@@ -27,7 +28,6 @@ const post_cowfood_details = (req, res) => {
 };
 
 module.exports = {
-  get_cowfood_root,
-  post_cowfood_details,
+  getCowFoodRoot,
+  postCowFoodDetails,
 };
-
